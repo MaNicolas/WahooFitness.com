@@ -16,6 +16,7 @@ public class MiniCartPageObject extends BasePageObject {
 	private By removeIconLocator = By.xpath("//a[@title='Remove item']");
 	private By removedItemNameLocator = By
 			.xpath("./ancestor::div[@class='product-item-details']/child::strong[@class='product-item-name']");
+	private By viewAndEditCartLocator = By.xpath("//a[@class='action viewcart']");
 
 	private String removedItemName;
 
@@ -73,5 +74,10 @@ public class MiniCartPageObject extends BasePageObject {
 		}
 		System.out.println("Item '" + removedItemName + "' has been removed.");
 		return true;
+	}
+
+	public CartPageObject goToCart() {
+		click(viewAndEditCartLocator, 3);
+		return new CartPageObject(driver);
 	}
 }

@@ -27,6 +27,16 @@ public class BasePageObject {
 	protected void openUrl(String url) {
 		driver.get(url);
 	}
+	
+	/** Get current URL **/
+	protected String getCurrentUrl() {
+		return driver.getCurrentUrl();
+	}
+	
+	/** Clear element locator **/
+	protected void clear(By locator) {
+		find(locator).clear();
+	}
 
 	/** Find element using given locator **/
 	protected WebElement find(By locator) {

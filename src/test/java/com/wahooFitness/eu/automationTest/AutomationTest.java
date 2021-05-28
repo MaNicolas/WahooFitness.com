@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import com.wahooFitness.eu.base.TestUtilities;
 import com.wahooFitness.eu.pages.AllProductPageObject;
+import com.wahooFitness.eu.pages.CartPageObject;
 import com.wahooFitness.eu.pages.ConfirmationPopupPageObject;
 import com.wahooFitness.eu.pages.MiniCartPageObject;
 import com.wahooFitness.eu.pages.WelcomePageObject;
@@ -17,7 +18,7 @@ public class AutomationTest extends TestUtilities {
 		// Go to https://eu.wahoofitness.com/
 		WelcomePageObject welcomePage = new WelcomePageObject(driver);
 		welcomePage.openPage();
-		welcomePage.acceptCookie();		
+		welcomePage.acceptCookie();
 
 		// Select random product and add it to the cart
 		AllProductPageObject allProductPage = welcomePage.openAllProductPage();
@@ -27,23 +28,37 @@ public class AutomationTest extends TestUtilities {
 		String expectedName = allProductPage.getItemName();
 		String actualName = miniCartPage.getProductNameInCart();
 		Assert.assertEquals(actualName, expectedName);
-		
+
 		// Go back to product category and select another random product and add it to
 		// the cart, too.
 		miniCartPage.goBackToProduct();
 		allProductPage.addRandomProduct();
 
 		// Click the removal button under one of the items, then confirm with
-		// the following pop-up. The item should be successfully removed from the cart.
+		// the following pop-up.
 		ConfirmationPopupPageObject confirmationPopupPage = miniCartPage.removeItem();
 		confirmationPopupPage.confirm();
+
+		// The item should be successfully removed from the cart.
 		Assert.assertTrue(miniCartPage.checkProductName());
 
-		// At the bottom of the cart side-bar, click on the edit cart link - should be
-		// taken to cart page.
+		// At the bottom of the cart side-bar, click on the edit cart link
+		CartPageObject cartPage = miniCartPage.goToCart();
+
+		// Should be taken to cart page.
+		String expectedUrl = cartPage.getUrl();
+		String actualUrl = cartPage.getActualUrl();
+		Assert.assertEquals(actualUrl, expectedUrl);
 
 		// Change the quantity of the item in the cart and click the update cart button.
+		cartPage.changeQuantity();
+		
 		// Prices should update to reflect the change.
+		float expectedPrice = cartPage.getUnitPrice() * 2;
+		float actualPrice = cartPage.getSubtotalPrice();
+		float orderTotalPrice = cartPage.getSubtotalPrice();
+		Assert.assertEquals(actualPrice, expectedPrice);
+		Assert.assertEquals(actualPrice, orderTotalPrice);
 
 		// Click the blue proceed to checkout button. Should be taken to the checkout
 		// details page.
