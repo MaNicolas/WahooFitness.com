@@ -1,7 +1,6 @@
 package com.wahooFitness.eu.pages;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -102,8 +101,9 @@ public class BasePageObject {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
 	
-	protected void waitForSeconds(Integer timeOutInSeconds) {
-		driver.manage().timeouts().implicitlyWait(timeOutInSeconds,TimeUnit.SECONDS);
+	protected void waitForNumberOfElementToBe(By locator, Integer number) {
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
 	}
 }
 

@@ -36,7 +36,8 @@ public class AutomationTest extends TestUtilities {
 		// Click the removal button under one of the items, then confirm with
 		// the following pop-up. The item should be successfully removed from the cart.
 		ConfirmationPopupPageObject confirmationPopupPage = miniCartPage.removeItem();
-		miniCartPage = confirmationPopupPage.confirm();
+		confirmationPopupPage.confirm();
+		Assert.assertTrue(miniCartPage.checkProductName());
 
 		// At the bottom of the cart side-bar, click on the edit cart link - should be
 		// taken to cart page.

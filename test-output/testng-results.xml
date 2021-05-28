@@ -17,12 +17,12 @@
       <![CDATA[User does not need to select a color.]]>
     </line>
   </reporter-output>
-  <suite started-at="2021-05-27T20:12:55 CEST" name="Default suite" finished-at="2021-05-27T20:13:15 CEST" duration-ms="20297">
+  <suite started-at="2021-05-28T15:25:17 CEST" name="Default suite" finished-at="2021-05-28T15:25:38 CEST" duration-ms="20052">
     <groups>
     </groups>
-    <test started-at="2021-05-27T20:12:55 CEST" name="Default test" finished-at="2021-05-27T20:13:15 CEST" duration-ms="20297">
+    <test started-at="2021-05-28T15:25:17 CEST" name="Default test" finished-at="2021-05-28T15:25:38 CEST" duration-ms="20052">
       <class name="com.wahooFitness.eu.automationTest.AutomationTest">
-        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:com.wahooFitness.eu.automationTest.AutomationTest@4944252c]" started-at="2021-05-27T20:12:55 CEST" name="setup" finished-at="2021-05-27T20:12:57 CEST" duration-ms="2483" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.String)[pri:0, instance:com.wahooFitness.eu.automationTest.AutomationTest@4944252c]" started-at="2021-05-28T15:25:18 CEST" name="setup" finished-at="2021-05-28T15:25:19 CEST" duration-ms="1915" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -36,7 +36,7 @@
             </line>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="method()[pri:0, instance:com.wahooFitness.eu.automationTest.AutomationTest@4944252c]" started-at="2021-05-27T20:12:57 CEST" name="method" finished-at="2021-05-27T20:13:15 CEST" duration-ms="17761" status="PASS">
+        <test-method signature="method()[pri:0, instance:com.wahooFitness.eu.automationTest.AutomationTest@4944252c]" started-at="2021-05-28T15:25:19 CEST" name="method" finished-at="2021-05-28T15:25:38 CEST" duration-ms="18090" status="PASS">
           <reporter-output>
             <line>
               <![CDATA[Opening page: https://eu.wahoofitness.com/]]>
@@ -52,7 +52,7 @@
             </line>
           </reporter-output>
         </test-method> <!-- method -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.wahooFitness.eu.automationTest.AutomationTest@4944252c]" started-at="2021-05-27T20:13:15 CEST" name="tearDown" finished-at="2021-05-27T20:13:15 CEST" duration-ms="1" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.wahooFitness.eu.automationTest.AutomationTest@4944252c]" started-at="2021-05-28T15:25:38 CEST" name="tearDown" finished-at="2021-05-28T15:25:38 CEST" duration-ms="0" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

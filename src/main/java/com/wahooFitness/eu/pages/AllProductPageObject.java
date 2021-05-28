@@ -16,6 +16,9 @@ public class AllProductPageObject extends BasePageObject {
 	private By colorDropDown = By.id("attribute92");
 	private By AddToCartButton = By.id("product-addtocart-button");
 	private By ItemNameLocator = By.xpath("./ancestor::div[@class='text']/child::p[@class='product-name']");
+	
+	private int randomNumber;
+	private int usedProductIndex;
 
 	String itemName;
 
@@ -25,18 +28,20 @@ public class AllProductPageObject extends BasePageObject {
 	}
 
 	// Methods
-	public MiniCartPageObject addRandomProduct() {
+	public MiniCartPageObject addRandomProduct() {		
 		// Get all available items from the list
 		List<WebElement> productList = findAll(availableProducts);
 
 		// Select any item from the list
 		Random random = new Random();
-		int randomNumber = random.nextInt(productList.size());
-		System.out.println("random number is: " + randomNumber);
+		randomNumber = 0;
+		do {
+			randomNumber = random.nextInt(productList.size());
+		} while (randomNumber == usedProductIndex);
+		usedProductIndex = randomNumber;
 
-		// Get item name
+		// Get item name for future assertion
 		itemName = productList.get(randomNumber).findElement(ItemNameLocator).getText().toLowerCase();
-		System.out.println("itemName is : " + itemName);
 
 		// Hover over element
 		hoverOverElement(productList.get(randomNumber));
