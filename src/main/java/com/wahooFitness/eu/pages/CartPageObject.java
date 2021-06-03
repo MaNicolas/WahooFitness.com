@@ -12,6 +12,7 @@ public class CartPageObject extends BasePageObject{
 	private By unitPriceLocator = By.xpath("(//span[@class='cart-price'])[1]");
 	private By subTotalPriceLocator = By.xpath("(//span[@class='cart-price'])[2]");
 	private By orderTotalLocator = By.xpath("(//td[@class='amount'])[3]");
+	private By checkOutLocator = By.xpath("//button[@title='Proceed to Checkout']");
 	
 	//Constructor
 	public CartPageObject(WebDriver driver) {
@@ -51,12 +52,11 @@ public class CartPageObject extends BasePageObject{
 	
 	public float getOrderTotalPrice() {
 		return convertStringToFloat(orderTotalLocator);
-	}
+	}	
 	
-	private float convertStringToFloat(By locator) {
-		String priceText = find(locator).getText();
-		priceText = removeSpecialCharacters(priceText);		
-		float unitPrice = Float.valueOf(priceText);
-		return unitPrice;
+	public CheckoutPageObject proceedToCheckOut() {
+		waitForElementToBeClickable(checkOutLocator, 5);
+		click(checkOutLocator, 5);
+		return new CheckoutPageObject(driver);
 	}
 }

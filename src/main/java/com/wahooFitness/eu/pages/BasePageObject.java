@@ -40,7 +40,7 @@ public class BasePageObject {
 
 	/** Find element using given locator **/
 	protected WebElement find(By locator) {
-		waitForVisibilityOf(locator, 3);
+		waitForVisibilityOf(locator, 5);
 		return driver.findElement(locator);
 	}
 
@@ -63,7 +63,7 @@ public class BasePageObject {
 
 	/** Removes special characters from a string **/
 	protected String removeSpecialCharacters(String s) {
-		String newString = s.replaceAll(",", ".");
+		String newString = s.replaceAll(",", "");
 		newString = newString.replaceAll("[^0-9.]", "");
 		return newString;
 	}
@@ -74,10 +74,24 @@ public class BasePageObject {
 		action.moveToElement(element).build().perform();
 	}
 	
-	/** Perform scroll to the bottom */
+	/** Perform scroll to the bottom **/
 	public void scrollToElement(WebElement element) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView();", element);
+	}
+	
+	/** Convert String to Float **/
+	protected float convertStringToFloat(By locator) {
+		String priceText = find(locator).getText();
+		priceText = removeSpecialCharacters(priceText);
+		System.out.println("Price is : " + priceText);
+		float price = Float.valueOf(priceText);
+		return price;
+	}
+	
+	/** Switch the driver to an editor */
+	public void switchToIframe(By frameLocator)	{
+		driver.switchTo().frame(find(frameLocator));
 	}
 
 	/** Wait for a WebElement to be visible **/

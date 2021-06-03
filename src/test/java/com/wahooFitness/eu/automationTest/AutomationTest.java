@@ -1,18 +1,20 @@
 package com.wahooFitness.eu.automationTest;
 
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 import com.wahooFitness.eu.base.TestUtilities;
 import com.wahooFitness.eu.pages.AllProductPageObject;
 import com.wahooFitness.eu.pages.CartPageObject;
+import com.wahooFitness.eu.pages.CheckoutPageObject;
 import com.wahooFitness.eu.pages.ConfirmationPopupPageObject;
 import com.wahooFitness.eu.pages.MiniCartPageObject;
 import com.wahooFitness.eu.pages.WelcomePageObject;
 
 public class AutomationTest extends TestUtilities {
 
-	@Test(invocationCount = 1)
+	@Test(invocationCount = 5)
 	public void method() {
 
 		// Go to https://eu.wahoofitness.com/
@@ -52,24 +54,46 @@ public class AutomationTest extends TestUtilities {
 
 		// Change the quantity of the item in the cart and click the update cart button.
 		cartPage.changeQuantity();
-		
+
 		// Prices should update to reflect the change.
 		float expectedPrice = cartPage.getUnitPrice() * 2;
 		float actualPrice = cartPage.getSubtotalPrice();
-		float orderTotalPrice = cartPage.getSubtotalPrice();
+		float orderTotalPrice = cartPage.getOrderTotalPrice();
 		Assert.assertEquals(actualPrice, expectedPrice);
 		Assert.assertEquals(actualPrice, orderTotalPrice);
 
-		// Click the blue proceed to checkout button. Should be taken to the checkout
-		// details page.
+		// Click the blue "Proceed to Checkout" button. Should be taken to the checkout
+		// page.
+		CheckoutPageObject checkoutPage = cartPage.proceedToCheckOut();
+		expectedUrl = checkoutPage.getUrl();
+		actualUrl = checkoutPage.getActualUrl();
+		Assert.assertEquals(actualUrl, expectedUrl);
 
-		// Click the blue place order button without filling in any info. Error messages
-		// should appear.
+		// Click the blue "Place Order" button without filling in any info. Error
+		// messages should appear.
+		checkoutPage.waitForPageToLoad();
+		checkoutPage.placeOrder();
+		Assert.assertTrue(checkoutPage.checkErrorMessage());
 
-		// Switch the shipping method to express shipping. Shipping method price should
-		// update.
+		// Switch the shipping method to "Express" shipping.
+		float economyShippingCost = checkoutPage.getShippingCost("Economy");
+		System.out.println("economyShippingCost = " + economyShippingCost);
+		Reporter.log("economyShippingCost = " + economyShippingCost);
+
+		checkoutPage.selectExpressShipping();
+		checkoutPage.waitForPageToLoad();
+		
+		sleep(3000);
+
+		float expressShippingCost = checkoutPage.getShippingCost("Express");
+		System.out.println("expressShippingCost = " + expressShippingCost);
+		Reporter.log("expressShippingCost = " + expressShippingCost);
+
+		// Shipping method price should update.
+		Assert.assertNotEquals(economyShippingCost, expressShippingCost);
 
 		// Enter any email, name, address, phone, credit card
+		checkoutPage.fillShippingAdress();
 
 		// Click the blue place order button. Expected result: payment is declined.
 
